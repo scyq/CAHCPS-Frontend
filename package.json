@@ -1,18 +1,21 @@
 {
-  "name": "fgh-student-growth-system",
-  "version": "0.0.0",
+  "name": "cahcps",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "vue": "^3.2.16"
+    "antd": "^4.16.13",
+    "next": "11.1.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.9.2",
-    "typescript": "^4.4.3",
-    "vite": "^2.6.0",
-    "vue-tsc": "^0.3.0"
+    "eslint": "8.0.0",
+    "eslint-config-next": "11.1.2"
   }
 }
