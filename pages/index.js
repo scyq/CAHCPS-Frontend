@@ -13,7 +13,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainLayout />
+      <MainLayout children="吴天鹤是傻子" />
     </div>
   );
 }
