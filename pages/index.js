@@ -1,13 +1,29 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import MainLayout from "../components/layout";
 import { useSharedData } from "../context";
+import Profile from "../components/profile";
+import { Box } from "@mui/system";
+import Index from "../components/index";
+import Grades from "../components/grades";
 
 export default function Home() {
   const state = useSharedData();
 
+  const getCurrentComponent = (index) => {
+    switch (index) {
+      case 0:
+        return <Index />;
+      case 1:
+        return <Profile />;
+      case 3:
+        return <Grades />;
+      default:
+        break;
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <MainLayout>
       <Head>
         <title>CAHCPS</title>
         <meta
@@ -16,7 +32,9 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainLayout>{state.currentComponent}</MainLayout>
-    </div>
+      <Box sx={{ marginTop: "50px" }}>
+        {getCurrentComponent(state.currentComponent)}
+      </Box>
+    </MainLayout>
   );
 }

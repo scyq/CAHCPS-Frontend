@@ -2,7 +2,6 @@ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -190,7 +189,6 @@ export default function PersistentDrawerLeft({ children }) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <AppBar position="fixed" open={open} className={styles.appbar}>
         <Toolbar>
           <IconButton
@@ -289,10 +287,7 @@ export default function PersistentDrawerLeft({ children }) {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        {children}
-      </Main>
+      <Main open={open}>{children}</Main>
     </Box>
   );
 }
