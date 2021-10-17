@@ -26,6 +26,17 @@ import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { deepPurple } from "@mui/material/colors";
 import Button from "@mui/material/Button";
+import AppsIcon from "@mui/icons-material/Apps";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import SortByAlphaOutlinedIcon from "@mui/icons-material/SortByAlphaOutlined";
+import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
+import FlightTakeoffOutlinedIcon from "@mui/icons-material/FlightTakeoffOutlined";
+import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
+import HailOutlinedIcon from "@mui/icons-material/HailOutlined";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 
 const drawerWidth = 240;
 
@@ -128,6 +139,53 @@ export default function PersistentDrawerLeft({ children }) {
     setOpen(false);
   };
 
+  const drawerList = [
+    {
+      text: "总览",
+      icon: <AppsIcon />,
+    },
+    {
+      text: "个人信息",
+      icon: <AccountCircleOutlinedIcon />,
+    },
+    {
+      text: "政治面貌",
+      icon: <FlagOutlinedIcon />,
+    },
+    {
+      text: "成绩查询",
+      icon: <MenuBookOutlinedIcon />,
+    },
+    {
+      text: "获奖情况",
+      icon: <StarBorderOutlinedIcon />,
+    },
+    {
+      text: "任职情况",
+      icon: <HailOutlinedIcon />,
+    },
+    {
+      text: "志愿服务",
+      icon: <SentimentSatisfiedAltOutlinedIcon />,
+    },
+    {
+      text: "语言考试",
+      icon: <SortByAlphaOutlinedIcon />,
+    },
+    {
+      text: "国际交流",
+      icon: <FlightTakeoffOutlinedIcon />,
+    },
+    {
+      text: "科研项目",
+      icon: <ScienceOutlinedIcon />,
+    },
+    {
+      text: "创新创业",
+      icon: <AccountBalanceOutlinedIcon />,
+    },
+  ];
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -168,8 +226,6 @@ export default function PersistentDrawerLeft({ children }) {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            bgcolor: "#a51c30",
-            color: "#ffffff",
           },
         }}
         variant="persistent"
@@ -206,43 +262,22 @@ export default function PersistentDrawerLeft({ children }) {
               flexDirection: "column",
             }}
           >
-            <div>管理员</div>
-            <Stack direction="row" spacing={2}>
-              <Button
-                variant="text"
-                startIcon={<VpnKeyOutlinedIcon />}
-                sx={{ color: "white", width: 10 }}
-              >
+            <Stack spacing={2} alignItems="flex-start">
+              <Button variant="text" startIcon={<VpnKeyOutlinedIcon />}>
                 修改密码
               </Button>
-              <Button
-                variant="text"
-                startIcon={<LogoutOutlinedIcon />}
-                sx={{ color: "white" }}
-              >
+              <Button variant="text" startIcon={<LogoutOutlinedIcon />}>
                 注销
               </Button>
             </Stack>
           </Box>
         </Box>
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+          {drawerList.map((item) => (
+            <ListItem button key={item.text}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text}></ListItemText>
             </ListItem>
           ))}
         </List>
