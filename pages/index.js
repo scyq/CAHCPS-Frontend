@@ -1,8 +1,11 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import MainLayout from "../components/layout";
+import { useSharedData } from "../context";
 
 export default function Home() {
+  const state = useSharedData();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,7 +16,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainLayout children="吴天鹤是傻子" />
+      <MainLayout>{state.currentComponent}</MainLayout>
     </div>
   );
 }

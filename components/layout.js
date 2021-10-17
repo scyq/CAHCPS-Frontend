@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme, alpha } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,17 +11,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import styles from "./layout.module.css";
 import Avatar from "@mui/material/Avatar";
-import { Stack } from "@mui/material";
+import { ListItemButton, Stack } from "@mui/material";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { deepPurple } from "@mui/material/colors";
@@ -37,6 +33,7 @@ import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlin
 import HailOutlinedIcon from "@mui/icons-material/HailOutlined";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
+import { useSharedData } from "../context";
 
 const drawerWidth = 240;
 
@@ -128,8 +125,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({ children }) {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const state = useSharedData();
+
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -137,6 +135,10 @@ export default function PersistentDrawerLeft({ children }) {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleSwitchComponent = (index) => {
+    state.setCurrentComponent(index);
   };
 
   const drawerList = [
@@ -234,7 +236,7 @@ export default function PersistentDrawerLeft({ children }) {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon sx={{ color: "white" }} />
+            <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -274,11 +276,16 @@ export default function PersistentDrawerLeft({ children }) {
         </Box>
         <Divider />
         <List>
-          {drawerList.map((item) => (
-            <ListItem button key={item.text}>
+          {drawerList.map((item, index) => (
+            <ListItemButton
+              key={index}
+              onClick={() => {
+                handleSwitchComponent(index);
+              }}
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text}></ListItemText>
-            </ListItem>
+            </ListItemButton>
           ))}
         </List>
       </Drawer>

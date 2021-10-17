@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import { DataWrapper } from "../context";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <DataWrapper>
+      <Component {...pageProps} />
+    </DataWrapper>
+  );
 }
 
-export default MyApp
+export default MyApp;
