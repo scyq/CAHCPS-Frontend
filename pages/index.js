@@ -7,6 +7,7 @@ import Index from "../components/index";
 import Grades from "../components/grades";
 import Awards from "../components/awards";
 import Volunteerism from "../components/volunteerism";
+import Language from "../components/language";
 
 export default function Home() {
   const state = useSharedData();
@@ -23,6 +24,8 @@ export default function Home() {
         return <Awards />;
       case 6:
         return <Volunteerism />;
+      case 7:
+        return <Language />;
       default:
         break;
     }
