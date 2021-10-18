@@ -5,6 +5,8 @@ import Profile from "../components/profile";
 import { Box } from "@mui/system";
 import Index from "../components/index";
 import Grades from "../components/grades";
+import Awards from "../components/awards";
+import Volunteerism from "../components/volunteerism";
 
 export default function Home() {
   const state = useSharedData();
@@ -17,6 +19,10 @@ export default function Home() {
         return <Profile />;
       case 3:
         return <Grades />;
+      case 4:
+        return <Awards />;
+      case 6:
+        return <Volunteerism />;
       default:
         break;
     }

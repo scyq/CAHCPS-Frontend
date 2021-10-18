@@ -188,7 +188,7 @@ export default function PersistentDrawerLeft({ children }) {
   ];
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", height: "100vh" }}>
       <AppBar position="fixed" open={open} className={styles.appbar}>
         <Toolbar>
           <IconButton
