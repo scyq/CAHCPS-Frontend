@@ -4,9 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import { List, ListItem, ListItemText } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import CommonTable from "./commonTable";
 
 function TabPanel(props) {
@@ -65,57 +63,69 @@ const contactTags = [
   "通讯地址",
 ];
 
+let headIdSequence = [
+  "year",
+  "semester",
+  "punishment",
+  "punishmentDate",
+  "type",
+  "errorDate",
+  "cancelDate",
+  "cancelId",
+  "cancelReason",
+];
+
 const punishmentTableHeads = [
   {
-    id: "学年",
+    id: "year",
     numeric: false,
     disablePadding: true,
     label: "学年",
   },
   {
-    id: "学期",
+    id: "semester",
     numeric: false,
     disablePadding: false,
     label: "学期",
   },
   {
-    id: "处分名称",
+    id: "punishment",
     numeric: false,
     disablePadding: true,
     label: "处分名称",
   },
   {
-    id: "处分日期",
+    id: "punishmentDate",
     numeric: false,
     disablePadding: true,
     label: "处分日期",
   },
   {
-    id: "违纪类别",
+    id: "type",
     numeric: false,
     disablePadding: true,
     label: "违纪类别",
   },
   {
-    id: "违纪日期",
+    id: "errorDate",
     numeric: false,
     disablePadding: true,
     label: "违纪日期",
   },
   {
-    id: "处分解除时间",
+    id: "cancelDate",
     numeric: false,
     disablePadding: true,
     label: "处分解除时间",
   },
   {
-    id: "处分解除文号",
+    id: "cancelId",
     numeric: false,
     disablePadding: true,
     label: "处分解除文号",
   },
   {
-    id: "处分解除原因",
+    id: "cancelReason",
     numeric: false,
     disablePadding: true,
     label: "处分解除原因",
@@ -156,7 +166,12 @@ function getTabContent(index) {
       );
     case 3:
       return (
-        <CommonTable tableTitle={"处分情况"} heads={punishmentTableHeads} />
+        <CommonTable
+          tableTitle={"处分情况"}
+          heads={punishmentTableHeads}
+          headIdSequence={headIdSequence}
+          rows={[]}
+        />
       );
 
     default:
