@@ -17,8 +17,6 @@ import Tooltip from "@mui/material/Tooltip";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
-// const rows = [];
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -193,7 +191,10 @@ export default function CommonTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => {
+                        handleClick(event, row.name);
+                        props.handleClick();
+                      }}
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}

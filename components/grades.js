@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import CommonTable from "./commonTable";
 import ReactECharts from "echarts-for-react";
-import { randomGradesGenerator } from "../utils";
+import { randomGradesGenerator, randomInt } from "../utils";
 import { Divider, Typography } from "@mui/material";
 import { useState } from "react";
 
@@ -198,26 +198,15 @@ const rows = [
   },
 ];
 
-const emptyGraph = {
-  xAxis: {
-    type: "category",
-    data: [],
-  },
-  yAxis: {
-    type: "value",
-  },
-  series: [
-    {
-      data: [],
-      type: "bar",
-    },
-  ],
-};
-
 export default function Grades() {
   const [courseId, setCourseId] = useState(-1);
-
-  const scoreRankOption = {
+  const [scoreRankOption, setScoreRankOption] = useState({
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+    },
     xAxis: {
       type: "category",
       data: [],
@@ -227,24 +216,11 @@ export default function Grades() {
     },
     series: [
       {
-        data: [
-          120,
-          {
-            value: 200,
-            itemStyle: {
-              color: "#a90000",
-            },
-          },
-          150,
-          80,
-          70,
-          110,
-          130,
-        ],
+        data: [],
         type: "bar",
       },
     ],
-  };
+  });
 
   return (
     <Box>
@@ -253,8 +229,39 @@ export default function Grades() {
         heads={gradesHead}
         headIdSequence={headIdSequence}
         rows={rows}
+        handleClick={() => {
+          let scores = randomGradesGenerator(30).sort();
+          let myScore = scores[randomInt(10, 20)];
+          // 统计每个分数有多少人
+          let zero2hundred = new Array(101).fill(0);
+          let yAxis = [];
+          for (let i = 0; i < scores.length; i++) {
+            zero2hundred[scores[i]]++;
+          }
+          for (let i = 0; i < zero2hundred.length; i++) {
+            if (zero2hundred[i] < 1) continue;
+            if (i === myScore) {
+              yAxis.push({
+                value: zero2hundred[i],
+                itemStyle: {
+                  color: "#a90000",
+                },
+              });
+            } else {
+              yAxis.push(zero2hundred[i]);
+            }
+          }
+          let temp = scoreRankOption;
+          temp.xAxis.data = Array.from(new Set(scores));
+          temp.series[0].data = yAxis;
+          setScoreRankOption(temp);
+          console.log(scores);
+          console.log(yAxis);
+          console.log(scoreRankOption);
+          setCourseId(1);
+        }}
       />
-      <ReactECharts option={courseId === -1 ? emptyGraph : scoreRankOption} />
+      {courseId >= 0 && <ReactECharts option={scoreRankOption} />}
       <Divider sx={{ marginBottom: "30px" }}></Divider>
       <Box>
         <Typography variant="h6" component="div">
