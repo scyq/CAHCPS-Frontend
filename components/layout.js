@@ -123,6 +123,108 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
+const studentDrawerList = [
+  {
+    text: "总览",
+    icon: <AppsIcon />,
+  },
+  {
+    text: "个人信息",
+    icon: <AccountCircleOutlinedIcon />,
+  },
+  {
+    text: "政治面貌",
+    icon: <FlagOutlinedIcon />,
+  },
+  {
+    text: "成绩查询",
+    icon: <MenuBookOutlinedIcon />,
+  },
+  {
+    text: "获奖情况",
+    icon: <StarBorderOutlinedIcon />,
+  },
+  {
+    text: "任职情况",
+    icon: <HailOutlinedIcon />,
+  },
+  {
+    text: "志愿服务",
+    icon: <SentimentSatisfiedAltOutlinedIcon />,
+  },
+  {
+    text: "语言考试",
+    icon: <SortByAlphaOutlinedIcon />,
+  },
+  {
+    text: "国际交流",
+    icon: <FlightTakeoffOutlinedIcon />,
+  },
+  {
+    text: "科研项目",
+    icon: <ScienceOutlinedIcon />,
+  },
+  {
+    text: "创新创业",
+    icon: <AccountBalanceOutlinedIcon />,
+  },
+];
+
+const adminDrawerList = [
+  {
+    text: "班级总览",
+    icon: <AppsIcon />,
+  },
+  {
+    text: "学生详情",
+    icon: <AccountCircleOutlinedIcon />,
+  },
+  {
+    text: "政治情况",
+    icon: <FlagOutlinedIcon />,
+  },
+  {
+    text: "成绩管理",
+    icon: <MenuBookOutlinedIcon />,
+  },
+  {
+    text: "获奖管理",
+    icon: <StarBorderOutlinedIcon />,
+  },
+  {
+    text: "任职管理",
+    icon: <HailOutlinedIcon />,
+  },
+  {
+    text: "志愿服务",
+    icon: <SentimentSatisfiedAltOutlinedIcon />,
+  },
+  {
+    text: "语言考试",
+    icon: <SortByAlphaOutlinedIcon />,
+  },
+  {
+    text: "国际交流",
+    icon: <FlightTakeoffOutlinedIcon />,
+  },
+  {
+    text: "科研项目",
+    icon: <ScienceOutlinedIcon />,
+  },
+  {
+    text: "创新创业",
+    icon: <AccountBalanceOutlinedIcon />,
+  },
+];
+
+const getDrawerList = (user) => {
+  if (user === "admin") {
+    return adminDrawerList;
+  } else if (user === "student") {
+    return studentDrawerList;
+  }
+};
+
 export default function PersistentDrawerLeft({ children }) {
   const state = useSharedData();
 
@@ -139,53 +241,6 @@ export default function PersistentDrawerLeft({ children }) {
   const handleSwitchComponent = (index) => {
     state.setCurrentComponent(index);
   };
-
-  const drawerList = [
-    {
-      text: "总览",
-      icon: <AppsIcon />,
-    },
-    {
-      text: "个人信息",
-      icon: <AccountCircleOutlinedIcon />,
-    },
-    {
-      text: "政治面貌",
-      icon: <FlagOutlinedIcon />,
-    },
-    {
-      text: "成绩查询",
-      icon: <MenuBookOutlinedIcon />,
-    },
-    {
-      text: "获奖情况",
-      icon: <StarBorderOutlinedIcon />,
-    },
-    {
-      text: "任职情况",
-      icon: <HailOutlinedIcon />,
-    },
-    {
-      text: "志愿服务",
-      icon: <SentimentSatisfiedAltOutlinedIcon />,
-    },
-    {
-      text: "语言考试",
-      icon: <SortByAlphaOutlinedIcon />,
-    },
-    {
-      text: "国际交流",
-      icon: <FlightTakeoffOutlinedIcon />,
-    },
-    {
-      text: "科研项目",
-      icon: <ScienceOutlinedIcon />,
-    },
-    {
-      text: "创新创业",
-      icon: <AccountBalanceOutlinedIcon />,
-    },
-  ];
 
   return (
     <Box sx={{ display: "flex", height: "100vh" }}>
@@ -206,7 +261,7 @@ export default function PersistentDrawerLeft({ children }) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            樊恭烋荣誉学院学生成长信息系统
+            樊恭烋荣誉学院学生成长画像系统
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -274,7 +329,7 @@ export default function PersistentDrawerLeft({ children }) {
         </Box>
         <Divider />
         <List>
-          {drawerList.map((item, index) => (
+          {getDrawerList("admin").map((item, index) => (
             <ListItemButton
               key={index}
               onClick={() => {

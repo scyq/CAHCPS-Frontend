@@ -5,7 +5,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { List, ListItem, ListItemText } from "@mui/material";
-import CommonTable from "./commonTable";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

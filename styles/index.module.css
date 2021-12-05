@@ -1,0 +1,26 @@
+.mainBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginBlock {
+  width: 40vw;
+  height: 50vh;
+  margin-left: 10vw;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.loginLine {
+  margin: 40px 0 0 30px;
+  width: 80%;
+}
