@@ -14,7 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import styles from "./layout.module.css";
+import styles from "../styles/layout.module.css";
 import Avatar from "@mui/material/Avatar";
 import { ListItemButton, Stack } from "@mui/material";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
@@ -33,6 +33,7 @@ import HailOutlinedIcon from "@mui/icons-material/HailOutlined";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import { useSharedData } from "../context";
+import { useRouter } from "next/router";
 
 const drawerWidth = 240;
 
@@ -125,46 +126,57 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const studentDrawerList = [
   {
+    index: "studentIndex",
     text: "总览",
     icon: <AppsIcon />,
   },
   {
+    index: "studentProfile",
     text: "个人信息",
     icon: <AccountCircleOutlinedIcon />,
   },
   {
+    index: "studentPolitics",
     text: "政治面貌",
     icon: <FlagOutlinedIcon />,
   },
   {
+    index: "studentGrades",
     text: "成绩查询",
     icon: <MenuBookOutlinedIcon />,
   },
   {
+    index: "studentAwards",
     text: "获奖情况",
     icon: <StarBorderOutlinedIcon />,
   },
   {
+    index: "studentOccupation",
     text: "任职情况",
     icon: <HailOutlinedIcon />,
   },
   {
+    index: "studentVolunteerism",
     text: "志愿服务",
     icon: <SentimentSatisfiedAltOutlinedIcon />,
   },
   {
+    index: "studentLanguage",
     text: "语言考试",
     icon: <SortByAlphaOutlinedIcon />,
   },
   {
+    index: "studentInternational",
     text: "国际交流",
     icon: <FlightTakeoffOutlinedIcon />,
   },
   {
+    index: "studentScience",
     text: "科研项目",
     icon: <ScienceOutlinedIcon />,
   },
   {
+    index: "studentInnovation",
     text: "创新创业",
     icon: <AccountBalanceOutlinedIcon />,
   },
@@ -172,46 +184,57 @@ const studentDrawerList = [
 
 const adminDrawerList = [
   {
+    index: "adminIndex",
     text: "班级总览",
     icon: <AppsIcon />,
   },
   {
+    index: "adminProfile",
     text: "学生详情",
     icon: <AccountCircleOutlinedIcon />,
   },
   {
+    index: "adminPolitics",
     text: "政治情况",
     icon: <FlagOutlinedIcon />,
   },
   {
+    index: "adminGrades",
     text: "成绩管理",
     icon: <MenuBookOutlinedIcon />,
   },
   {
+    index: "adminAwards",
     text: "获奖管理",
     icon: <StarBorderOutlinedIcon />,
   },
   {
+    index: "adminOccupation",
     text: "任职管理",
     icon: <HailOutlinedIcon />,
   },
   {
+    index: "adminVolunteerism",
     text: "志愿服务",
     icon: <SentimentSatisfiedAltOutlinedIcon />,
   },
   {
+    index: "studentLanguage",
     text: "语言考试",
     icon: <SortByAlphaOutlinedIcon />,
   },
   {
+    index: "adminInternational",
     text: "国际交流",
     icon: <FlightTakeoffOutlinedIcon />,
   },
   {
+    index: "adminScience",
     text: "科研项目",
     icon: <ScienceOutlinedIcon />,
   },
   {
+    index: "adminInnovation",
     text: "创新创业",
     icon: <AccountBalanceOutlinedIcon />,
   },
@@ -226,6 +249,7 @@ const getDrawerList = (user) => {
 };
 
 export default function PersistentDrawerLeft({ children }) {
+  const router = useRouter();
   const state = useSharedData();
 
   const [open, setOpen] = React.useState(true);
@@ -321,7 +345,13 @@ export default function PersistentDrawerLeft({ children }) {
               <Button variant="text" startIcon={<VpnKeyOutlinedIcon />}>
                 修改密码
               </Button>
-              <Button variant="text" startIcon={<LogoutOutlinedIcon />}>
+              <Button
+                variant="text"
+                startIcon={<LogoutOutlinedIcon />}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
                 注销
               </Button>
             </Stack>
@@ -333,7 +363,7 @@ export default function PersistentDrawerLeft({ children }) {
             <ListItemButton
               key={index}
               onClick={() => {
-                handleSwitchComponent(index);
+                handleSwitchComponent(item.index);
               }}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>

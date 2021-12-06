@@ -164,14 +164,7 @@ function getTabContent(index) {
         </List>
       );
     case 3:
-      return (
-        <CommonTable
-          tableTitle={"处分情况"}
-          heads={punishmentTableHeads}
-          headIdSequence={headIdSequence}
-          rows={[]}
-        />
-      );
+      return <div>处分情况</div>;
 
     default:
       break;

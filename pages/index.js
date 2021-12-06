@@ -11,8 +11,10 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Index() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -99,6 +101,9 @@ export default function Index() {
             sx={{ width: "50ch", height: "60px" }}
             variant="contained"
             className={style.loginLine}
+            onClick={() => {
+              router.push("/main");
+            }}
           >
             登录
           </Button>

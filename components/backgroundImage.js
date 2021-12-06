@@ -1,5 +1,5 @@
 import Image from "next/image";
-import style from "./background.module.css";
+import style from "../styles/background.module.css";
 
 const Background = () => (
   <div>

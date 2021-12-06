@@ -13,6 +13,14 @@ import SchoolIcon from "@mui/icons-material/School";
 import FlagIcon from "@mui/icons-material/Flag";
 import PublicIcon from "@mui/icons-material/Public";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
+import { useEffect } from "react";
+import * as React from "react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
 
 const option = {
   title: {
@@ -152,7 +160,98 @@ function HonorTimeLine() {
   );
 }
 
+const metaAdvise = [
+  {
+    id: "德",
+    color: "#FF0000",
+    hash: "moral",
+    saying: "勿以善小而不为，勿以恶小而为之",
+  },
+  {
+    id: "智",
+    color: "#FFC000",
+    hash: "wisdom",
+    saying: "书籍是人类进步的阶梯",
+  },
+  {
+    id: "体",
+    color: "#7030A0",
+    hash: "physical",
+    saying: "身体是革命的本钱",
+  },
+  {
+    id: "美",
+    color: "#00B050",
+    hash: "aesthetic",
+    saying: "艺术是精神和物质的奋斗",
+  },
+  {
+    id: "劳",
+    color: "#0070C0",
+    hash: "labor",
+    saying: "劳动最光荣",
+  },
+];
+
 export default function Index() {
+  const [advise, setAdvise] = React.useState(null);
+
+  const getAdvise = async () => {
+    const res = await fetch(
+      "http://s.wusiyu.me:48000/student/1/advise?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjEsImV4cCI6MTY0MTMzMDY5MX0.rdtJAkZC1xEb28PX2mShXrxGybkOyDTtdS6rfhpWPkE",
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
+    console.log(res);
+    const _ = await res.json();
+    console.log(_.advise);
+    setAdvise(_.advise);
+  };
+
+  useEffect(() => {
+    getAdvise();
+  }, []);
+
+  function Advise() {
+    return (
+      <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+        {advise &&
+          metaAdvise.map((item, index) => (
+            <>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar sx={{ background: item.color }} alt={item.id}>
+                    {item.id}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={item.saying}
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {advise[item.hash].score}
+                      </Typography>
+                      {` — ${advise[item.hash].msg}`}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              {index !== metaAdvise.length - 1 && (
+                <Divider variant="inset" component="li" />
+              )}
+            </>
+          ))}
+      </List>
+    );
+  }
+
   return (
     <Box sx={{ marginTop: "80px" }}>
       <Stack direction="row" spacing={8}>
@@ -160,7 +259,8 @@ export default function Index() {
           <ReactECharts option={option} style={{ height: 500, width: 500 }} />
         </Box>
         <Box sx={{ minWidth: "40vw" }}>
-          <HonorTimeLine />
+          {Advise()}
+          {/* <HonorTimeLine /> */}
         </Box>
       </Stack>
     </Box>

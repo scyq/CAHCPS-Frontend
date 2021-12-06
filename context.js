@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const AppContext = createContext();
 
 export function DataWrapper({ children }) {
-  const [currentComponent, setCurrentComponent] = useState(0);
+  const [currentComponent, setCurrentComponent] = useState("adminIndex");
   let sharedState = {
     currentComponent,
     setCurrentComponent,
