@@ -6,7 +6,7 @@ const Background = () => (
     <div className={style.bgWrap}>
       <Image
         alt="background"
-        src={`/background.jpg`}
+        src={`/images/background.jpg`}
         layout="fill"
         objectFit="cover"
         quality={100}

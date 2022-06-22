@@ -32,7 +32,7 @@ function ClassCard(item) {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={`/FGH${item.index}.png`}
+          image={`/images/FGH${item.index}.png`}
           alt="badge"
         />
         <CardContent>

@@ -12,6 +12,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { betterFetch } from "../network";
 
 export default function Index() {
   const router = useRouter();
@@ -101,8 +102,20 @@ export default function Index() {
             sx={{ width: "50ch", height: "60px" }}
             variant="contained"
             className={style.loginLine}
-            onClick={() => {
-              router.push("/main");
+            onClick={async () => {
+              let res = await betterFetch(
+                "/user/login",
+                "PUT",
+                {},
+                {
+                  email_or_student_id: username,
+                  password: password,
+                }
+              );
+              if (res.status === "ok") {
+                localStorage.setItem("token", res.token);
+                router.push("/main");
+              }
             }}
           >
             登录

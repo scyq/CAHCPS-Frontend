@@ -14,6 +14,8 @@ import {
   gridClasses,
 } from "@mui/x-data-grid";
 import { useSharedData } from "../context";
+import { betterFetch } from "../network";
+import { useRouter } from "next/router";
 
 function CustomToolbar() {
   return (
@@ -25,42 +27,53 @@ function CustomToolbar() {
 
 const columns = [
   { field: "id", headerName: "序号", width: 90 },
+  { field: "学号", headerName: "学号", width: 150 },
   {
     field: "姓名",
     headerName: "姓名",
     width: 150,
     editable: true,
   },
-  {
-    field: "联系电话",
-    headerName: "联系电话",
-    width: 150,
-    editable: true,
-  },
+  { field: "性别", headerName: "性别", width: 90 },
+  { field: "民族", headerName: "民族", width: 100 },
+  { field: "生源地", headerName: "生源地", width: 150 },
+  { field: "出生日期", headerName: "出生日期", width: 150 },
   {
     field: "专业",
     headerName: "专业",
     width: 180,
-    editable: true,
   },
-];
-
-const fourGrades = [
+  { field: "班级", headerName: "班级", width: 150 },
+  { field: "籍贯", headerName: "籍贯", width: 150 },
   {
-    id: 0,
-    profileFiles: "暂无",
-  },
-  {
-    id: 1,
-    profileFiles: "暂无",
+    field: "联系电话",
+    headerName: "联系电话",
+    width: 150,
   },
   {
-    id: 2,
-    profileFiles: "暂无",
+    field: "E-mail",
+    headerName: "E-mail",
+    width: 150,
   },
   {
-    id: 3,
-    profileFiles: "暂无",
+    field: "宿舍楼",
+    headerName: "宿舍楼",
+    width: 150,
+  },
+  {
+    field: "宿舍号",
+    headerName: "宿舍号",
+    width: 150,
+  },
+  {
+    field: "校级职务",
+    headerName: "校级职务",
+    width: 150,
+  },
+  {
+    field: "班内职务",
+    headerName: "班内职务",
+    width: 150,
   },
 ];
 
@@ -68,7 +81,7 @@ function TabPanel(props) {
   const state = useSharedData();
   const [pageSize, setPageSize] = React.useState(5);
   const [rows, setRows] = React.useState([]);
-  const { children, value, index, item, ...other } = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <div
@@ -81,7 +94,6 @@ function TabPanel(props) {
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Stack direction="row" alignItems="center" spacing={4}>
-            <Box>{item.profileFiles}</Box>
             <Button
               variant="contained"
               color="secondary"
@@ -91,6 +103,7 @@ function TabPanel(props) {
             </Button>
             <Button
               variant="contained"
+              color="success"
               endIcon={<FileUploadIcon />}
               component="label"
             >
@@ -127,15 +140,26 @@ function TabPanel(props) {
               }}
             />
           </Box>
-          <Button
-            variant="contained"
-            sx={{ marginTop: "10px" }}
-            onClick={() => {
-              state.setCurrentComponent("studentIndex");
-            }}
-          >
-            查看详情
-          </Button>
+          <Stack sx={{ marginTop: "10px" }} direction="row" spacing={3}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                state.setCurrentComponent("studentIndex");
+              }}
+            >
+              查看详情
+            </Button>
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={() => {
+                props.generateReport();
+              }}
+            >
+              生成报告
+            </Button>
+          </Stack>
+
           <Box>{children}</Box>
         </Box>
       )}
@@ -157,7 +181,25 @@ function a11yProps(index) {
 }
 
 export default function AdminProfile() {
+  const router = useRouter();
+
+  const [classes, setClasses] = React.useState([]);
   const [value, setValue] = React.useState(0);
+
+  const fetchClasses = async () => {
+    const res = await betterFetch("/admin/classes", "GET", {
+      token: localStorage.getItem("token"),
+    });
+    if (res.status === "ok") {
+      let _classes = res["student_list"];
+      console.log(_classes);
+      setClasses(_classes);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchClasses();
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -171,18 +213,24 @@ export default function AdminProfile() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="210001 大一" {...a11yProps(0)} />
-          <Tab label="200001 大二" {...a11yProps(1)} />
-          <Tab label="190001 大三" {...a11yProps(2)} />
-          <Tab label="180001 大四" {...a11yProps(3)} />
+          {classes.map((item, index) => (
+            <Tab
+              label={item.name}
+              key={item["class_id"]}
+              {...a11yProps(index)}
+            />
+          ))}
         </Tabs>
       </Box>
-      {fourGrades.map((item) => (
+      {classes.map((item, index) => (
         <TabPanel
-          key={item.id}
+          key={item["class_id"]}
           value={value}
-          index={item.id}
+          index={index}
           item={item}
+          generateReport={() => {
+            router.push("/report");
+          }}
         ></TabPanel>
       ))}
     </Box>

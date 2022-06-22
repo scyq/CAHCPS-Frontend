@@ -34,6 +34,7 @@ import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSati
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import { useSharedData } from "../context";
 import { useRouter } from "next/router";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 
 const drawerWidth = 240;
 
@@ -185,8 +186,13 @@ const studentDrawerList = [
 const adminDrawerList = [
   {
     index: "adminIndex",
-    text: "班级总览",
+    text: "班级管理",
     icon: <AppsIcon />,
+  },
+  {
+    index: "adminOverview",
+    text: "班级总览",
+    icon: <SupervisorAccountIcon />,
   },
   {
     index: "adminProfile",
@@ -361,6 +367,11 @@ export default function PersistentDrawerLeft({ children }) {
         <List>
           {getDrawerList("admin").map((item, index) => (
             <ListItemButton
+              sx={
+                item.index === state.currentComponent
+                  ? { backgroundColor: "rgba(0, 0, 0, 0.1) !important" }
+                  : {}
+              }
               key={index}
               onClick={() => {
                 handleSwitchComponent(item.index);

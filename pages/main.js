@@ -8,18 +8,21 @@ import Grades from "../components/grades";
 import Awards from "../components/awards";
 import Volunteerism from "../components/volunteerism";
 import Language from "../components/language";
-import AdminIndex from "../components/adminIndex";
 import AdminGrades from "../components/adminGrades";
 import AdminProfile from "../components/adminProfile";
+import AdminOverview from "../components/adminOverview";
+import AdminIndex from "../components/adminIndex";
 
 const getCurrentComponent = (index) => {
   switch (index) {
-    case "adminIndex":
-      return <AdminIndex />;
+    case "adminOverview":
+      return <AdminOverview />;
     case "adminGrades":
       return <AdminGrades />;
     case "adminProfile":
       return <AdminProfile />;
+    case "adminIndex":
+      return <AdminIndex />;
     case "studentIndex":
       return <Index />;
     case 1:
